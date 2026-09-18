@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgriAssist — Smart Farming Dashboard</title>
+  <meta name="description" content="AI-assisted agriculture advisory and smart farming dashboard prototype.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <div class="brand-mark">✦</div>
+      <div><strong>AgriAssist</strong><span>Smart Farming</span></div>
+    </div>
+
+    <nav>
+      <p class="nav-label">WORKSPACE</p>
+      <a class="nav-item active" href="#overview" data-section="overview"><span>⌂</span> Overview</a>
+      <a class="nav-item" href="#advisor" data-section="advisor"><span>✦</span> AI Crop Advisor</a>
+      <a class="nav-item" href="#disease" data-section="disease"><span>⌁</span> Crop Health</a>
+      <a class="nav-item" href="#market" data-section="market"><span>↗</span> Market Prices</a>
+      <a class="nav-item" href="#tools" data-section="tools"><span>◫</span> Farm Tools</a>
+    </nav>
+
+    <div class="sidebar-card">
+      <div class="mini-icon">?</div>
+      <strong>Need help?</strong>
+      <p>Use the AI assistant to create a quick crop plan.</p>
+      <button onclick="scrollToSection('advisor')">Open Advisor →</button>
+    </div>
+
+    <div class="sidebar-footer">ESE • AI Web Application<br><span>Academic Prototype</span></div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <button class="mobile-menu" onclick="toggleSidebar()">☰</button>
+      <div class="crumb">Workspace <span>/</span> Agriculture</div>
+      <div class="top-actions">
+        <div class="status"><i></i> System ready</div>
+        <div class="avatar">A</div>
+      </div>
+    </header>
+
+    <section class="content" id="overview">
+      <div class="hero">
+        <div>
+          <div class="eyebrow">AI-ASSISTED AGRICULTURE</div>
+          <h1>Make better farming<br><em>decisions, faster.</em></h1>
+          <p>One professional workspace for crop planning, plant health, market awareness and practical farm guidance.</p>
+          <div class="hero-actions">
+            <button class="primary-btn" onclick="scrollToSection('advisor')">✦ Get AI Crop Advice</button>
+            <button class="ghost-btn" onclick="scrollToSection('tools')">Explore tools <span>→</span></button>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="sun"></div>
+          <div class="field field-back"></div>
+          <div class="field field-mid"></div>
+          <div class="field field-front"></div>
+          <div class="plant p1">🌾</div><div class="plant p2">🌱</div><div class="plant p3">🌾</div>
+          <div class="visual-label"><span>✦</span> Smart Agriculture</div>
+        </div>
+      </div>
+
+      <div class="stat-grid">
+        <div class="stat-card"><span class="stat-icon">🌱</span><div><small>Crop Library</small><strong>06</strong></div><span class="stat-note">advisories</span></div>
+        <div class="stat-card"><span class="stat-icon">◔</span><div><small>Water Priority</small><strong>Medium</strong></div><span class="stat-note">today</span></div>
+        <div class="stat-card"><span class="stat-icon">↗</span><div><small>Market Signals</small><strong>+2.1%</strong></div><span class="stat-note positive">stable</span></div>
+        <div class="stat-card"><span class="stat-icon">✓</span><div><small>Farm Readiness</small><strong>82%</strong></div><span class="stat-note">good</span></div>
+      </div>
+
+      <div class="section-heading">
+        <div><span class="eyebrow">YOUR FARM WORKSPACE</span><h2>What do you want to solve?</h2></div>
+        <span class="live-pill"><i></i> Prototype mode</span>
+      </div>
+
+      <div class="feature-grid">
+        <button class="feature-card featured" onclick="scrollToSection('advisor')">
+          <div class="feature-top"><span class="feature-icon">✦</span><span>AI</span></div>
+          <h3>Crop Advisor</h3>
+          <p>Get a crop-specific plan using soil type, growth stage and reported issues.</p>
+          <b>Start advisory →</b>
+        </button>
+        <button class="feature-card" onclick="scrollToSection('disease')">
+          <div class="feature-top"><span class="feature-icon">⌁</span><span>HEALTH</span></div>
+          <h3>Crop Health</h3>
+          <p>Use symptoms as a first screening step and receive safe next actions.</p>
+          <b>Check symptoms →</b>
+        </button>
+        <button class="feature-card" onclick="scrollToSection('market')">
+          <div class="feature-top"><span class="feature-icon">↗</span><span>MARKET</span></div>
+          <h3>Market Watch</h3>
+          <p>View sample commodity signals in a clean, farmer-friendly dashboard.</p>
+          <b>View prices →</b>
+        </button>
+      </div>
+    </section>
+
+    <section class="content panel-section" id="advisor">
+      <div class="section-heading"><div><span class="eyebrow">AI CROP ADVISOR</span><h2>Build a quick crop plan</h2></div></div>
+      <div class="advisor-layout">
+        <div class="form-card">
+          <div class="card-title"><span class="icon-box">✦</span><div><h3>Tell us about the crop</h3><p>Answer four simple questions.</p></div></div>
+          <label>Crop</label>
+          <select id="crop">
+            {% for crop in crops %}<option>{{ crop }}</option>{% endfor %}
+          </select>
+          <label>Soil type</label>
+          <select id="soil"><option>Loamy</option><option>Clayey</option><option>Sandy</option><option>Black soil</option><option>Red soil</option></select>
+          <label>Growth stage</label>
+          <select id="stage"><option>Seedling</option><option>Vegetative</option><option>Flowering</option><option>Fruiting / Grain filling</option><option>Harvest</option></select>
+          <label>Current issue</label>
+          <select id="issue"><option>No major issue</option><option>Leaves are yellowing</option><option>Leaves have spots</option><option>Plant is wilting</option><option>Insects are visible</option></select>
+          <button class="primary-btn full" onclick="getAdvice()">Generate AI-style advisory ✦</button>
+        </div>
+        <div class="result-card" id="adviceResult">
+          <div class="empty-result"><div class="result-orb">✦</div><h3>Your advisory will appear here</h3><p>Choose your crop details and click <strong>Generate advisory</strong>.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="content panel-section" id="disease">
+      <div class="section-heading"><div><span class="eyebrow">CROP HEALTH</span><h2>Quick symptom screening</h2></div></div>
+      <div class="health-layout">
+        <div class="symptom-card">
+          <div class="card-title"><span class="icon-box">⌁</span><div><h3>What are you observing?</h3><p>This is a preliminary screening, not a final diagnosis.</p></div></div>
+          <div class="symptoms">
+            <button class="symptom active" data-symptom="yellowing">🍃 Yellow leaves</button>
+            <button class="symptom" data-symptom="spots">◌ Leaf spots</button>
+            <button class="symptom" data-symptom="wilting">💧 Wilting</button>
+            <button class="symptom" data-symptom="holes">◉ Holes / chewing</button>
+            <button class="symptom" data-symptom="curling">〰 Curling leaves</button>
+          </div>
+          <button class="dark-btn" onclick="checkHealth()">Analyze symptom</button>
+        </div>
+        <div class="health-result" id="healthResult">
+          <span class="result-tag">PRELIMINARY FINDING</span>
+          <h3>Possible nutrient deficiency or root/water stress</h3>
+          <p>Check soil moisture and arrange a soil test before applying fertilizer.</p>
+          <div class="notice">⚠ Always confirm disease or pest diagnosis with a qualified local agriculture professional before using pesticides.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="content panel-section" id="market">
+      <div class="section-heading"><div><span class="eyebrow">MARKET WATCH</span><h2>Commodity snapshot</h2></div><span class="date-chip">Demo data • Academic prototype</span></div>
+      <div class="table-card">
+        <div class="table-head"><span>Commodity</span><span>Indicative price</span><span>Unit</span><span>Signal</span></div>
+        <div id="marketRows"></div>
+      </div>
+      <p class="disclaimer">Prices shown here are sample values for demonstrating the web application's interface and are not live market quotations.</p>
+    </section>
+
+    <section class="content panel-section" id="tools">
+      <div class="section-heading"><div><span class="eyebrow">FARM TOOLS</span><h2>Simple planning utilities</h2></div></div>
+      <div class="tools-grid">
+        <div class="tool-card">
+          <span class="tool-number">01</span><h3>Water Planner</h3><p>Estimate a simple daily irrigation volume from field area and application depth.</p>
+          <div class="tool-inputs"><input id="area" type="number" min="0" placeholder="Area (m²)"><input id="depth" type="number" min="0" placeholder="Depth (mm)"></div>
+          <button class="ghost-btn full" onclick="calcWater()">Calculate →</button>
+          <div class="tool-output" id="waterOutput">Result will appear here.</div>
+        </div>
+        <div class="tool-card">
+          <span class="tool-number">02</span><h3>Farm Checklist</h3><p>A compact checklist for routine crop observation.</p>
+          <label class="check"><input type="checkbox"> Check soil moisture</label>
+          <label class="check"><input type="checkbox"> Inspect leaves & stems</label>
+          <label class="check"><input type="checkbox"> Check weeds & pests</label>
+          <label class="check"><input type="checkbox"> Review irrigation schedule</label>
+          <label class="check"><input type="checkbox"> Record field observations</label>
+        </div>
+        <div class="tool-card assistant-card">
+          <span class="tool-number">03</span><h3>AI Assistant</h3><p>Ask a practical farming question in plain language.</p>
+          <div class="chat" id="chat"><div class="bot">Hi! I can help structure a basic crop-planning question. Try: “How should I plan irrigation for wheat?”</div></div>
+          <div class="chat-input"><input id="question" placeholder="Ask about a crop..."><button onclick="askAssistant()">↑</button></div>
+        </div>
+      </div>
+    </section>
+
+    <footer><strong>AgriAssist</strong> • AI-Assisted Agriculture Web Application • Built as an academic prototype</footer>
+  </main>
+</div>
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
